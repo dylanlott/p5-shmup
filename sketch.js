@@ -1,6 +1,9 @@
 var ship;
 var canvasHeight = 400;
 var canvasWidth = 400;
+var bulletSpeed = 5;
+
+const bullets = [];
 
 function setup() {
   createCanvas(400, 400);
@@ -24,6 +27,13 @@ function draw() {
   if (keyIsDown(DOWN_ARROW)) {
     ship.move(0, 1);
   }
+
+  // fire
+  if (keyIsDown(32)) {
+    bullets.push(ship.shoot())
+  }
+
+
 
   ship.display();
 }
@@ -55,7 +65,31 @@ function Ship(x, y) {
     }
   }
 
+  this.shoot = function () {
+    console.log('shooting');
+    if (bullets.length < 1000) {
+      return new Bullet(this.x, this.y);
+    }
+
+    return;
+  }
+
   this.display = function() {
     ellipse(this.x, this.y, 10, 10);
   }
+}
+
+function Bullet(x, y) {
+  this.x = x;
+  this.y = y;
+
+  console.log('bullet created');
+  console.log(this.x, this.y);
+
+  while (this.y < height) {
+    console.log('while', this.y)
+    this.y += y * 5
+  }
+
+  ellipse(this.x + 10, this.y + 20, 10, 10);
 }
