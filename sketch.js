@@ -1,5 +1,6 @@
 var ship;
 var shots = [];
+var enemies = [];
 
 function setup() {
   createCanvas(400, 400);
