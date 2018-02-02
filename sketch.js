@@ -1,13 +1,26 @@
 var ship;
 var shots = [];
+var stars = [];
+var starCount = 400;
 
 function setup() {
   createCanvas(400, 400);
   ship = new Ship(width/2,height*0.8);
+
+  for (var i = 0; i < starCount; i++) {
+    stars[i] = new Star(ship.movement);
+  }
 }
 
 function draw() {
-  background(127);
+  background(0);
+
+  for (var i = 0; i < starCount; i++) {
+
+    stars[i].move();
+    stars[i].display();
+  }
+
 
   if (ship.isTransitioning() === true) {
     ship.transitionMovement();

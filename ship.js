@@ -85,7 +85,7 @@ function Ship(x, y) {
       }
 
       this.setTransitioning(false);
-    }
+    } 
 
   }
 
