@@ -1,10 +1,19 @@
 var ship;
 var shots = [];
 var enemies = [];
+var currentLevel = 0;
+var levels = new Level();
 
 function setup() {
   createCanvas(400, 400);
   ship = new Ship(width/2,height*0.8);
+
+  for (i=0; i < levels[currentLevel].enemies; i++) {
+    var _x = random(0,400);
+    var _y = random(0,400);
+    console.log(_x, _y);
+    enemies.push(new Enemy(_x, _y, {}))
+  }
 }
 
 function draw() {
@@ -42,6 +51,10 @@ function draw() {
     }
   }
 
+  for (i=0; i < enemies.length; i++) {
+    enemies[i].display();
+  }
+
   ship.display();
 }
 
@@ -53,4 +66,8 @@ function keyPressed() {
     if (key === 'S' && ship.isTransitioning() == false) {
       shots.push(new Shot(ship.x, ship.y, ship.movement));
     }
+}
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
