@@ -1,5 +1,8 @@
 var ship;
 var shots = [];
+var enemies = [];
+var currentLevel = 0;
+var levels = new Level();
 var stars = [];
 var starCount = 400;
 
@@ -7,6 +10,12 @@ function setup() {
   createCanvas(400, 400);
   ship = new Ship(width/2,height*0.8);
 
+  for (i=0; i < levels[currentLevel].enemies; i++) {
+    var _x = random(0,400);
+    var _y = random(0,400);
+    enemies.push(new Enemy(_x, _y, {}))
+  }
+  
   for (var i = 0; i < starCount; i++) {
     stars[i] = new Star();
   }
@@ -46,6 +55,10 @@ function draw() {
     }
   }
 
+  for (i=0; i < enemies.length; i++) {
+    enemies[i].display();
+  }
+
   ship.display();
 }
 
@@ -53,4 +66,8 @@ function keyPressed() {
     if (key === 'S') {
       shots.push(new Shot(ship.x, ship.y));
     }
+}
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
