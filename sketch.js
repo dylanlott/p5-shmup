@@ -8,7 +8,7 @@ function setup() {
   ship = new Ship(width/2,height*0.8);
 
   for (var i = 0; i < starCount; i++) {
-    stars[i] = new Star(ship.movement);
+    stars[i] = new Star();
   }
 }
 
@@ -16,16 +16,8 @@ function draw() {
   background(0);
 
   for (var i = 0; i < starCount; i++) {
-
     stars[i].move();
     stars[i].display();
-  }
-
-
-  if (ship.isTransitioning() === true) {
-    ship.transitionMovement();
-    ship.display();
-    return;
   }
 
   if (keyIsDown(LEFT_ARROW)) {
@@ -58,11 +50,7 @@ function draw() {
 }
 
 function keyPressed() {
-    if (key === 'A' && ship.isTransitioning() == false) {
-      ship.setTransitioning(true);
-    }
-
-    if (key === 'S' && ship.isTransitioning() == false) {
-      shots.push(new Shot(ship.x, ship.y, ship.movement));
+    if (key === 'S') {
+      shots.push(new Shot(ship.x, ship.y));
     }
 }
