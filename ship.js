@@ -1,9 +1,8 @@
 function Ship(x, y) {
   this.x = x;
   this.y = y;
-
   this.startPos = [x, y];
-  this.speed = 5;
+  this.speed = 4;
 
   this.move = function(x, y) {
 
@@ -28,5 +27,6 @@ function Ship(x, y) {
 
   this.display = function() {
     ellipse(this.x, this.y, 10, 10);
+    // image(shipImage, this.x -18, this.y, img.height/10, img.width/10);
   }
 }

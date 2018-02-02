@@ -5,6 +5,11 @@ var currentLevel = 0;
 var levels = new Level();
 var stars = [];
 var starCount = 400;
+var shipImage;
+
+function preload() {
+  // shipImage = loadImage('assets/ship.png');
+}
 
 function setup() {
   createCanvas(400, 400);
@@ -15,7 +20,7 @@ function setup() {
     var _y = random(0,400);
     enemies.push(new Enemy(_x, _y, {}))
   }
-  
+
   for (var i = 0; i < starCount; i++) {
     stars[i] = new Star();
   }
