@@ -1,78 +1,61 @@
-var ship;
-var shots = [];
+var player;
 var enemies = [];
-var currentLevel = 0;
-var levels = new Level();
 var stars = [];
 var starCount = 400;
-var shipImage;
 
 function preload() {
-  // shipImage = loadImage('assets/ship.png');
 }
 
 function setup() {
   createCanvas(400, 400);
-  ship = new Ship(width/2,height*0.8);
+  player = new Player(width/2,height*0.8);
+  createStarfield();
+}
 
-  for (i=0; i < levels[currentLevel].enemies; i++) {
-    var _x = random(0,400);
-    var _y = random(0,400);
-    enemies.push(new Enemy(_x, _y, {}))
+function draw() {
+  background(0);
+  moveStarField();
+
+  if (keyIsDown(LEFT_ARROW)) {
+    player.move(LEFT);
   }
 
+  if (keyIsDown(RIGHT_ARROW)) {
+    player.move(RIGHT);
+  }
+
+  if (keyIsDown(UP_ARROW)) {
+    player.move(UP);
+  }
+
+  if (keyIsDown(DOWN_ARROW)) {
+    player.move(DOWN);
+  }
+
+  player.display();
+}
+
+function keyPressed() {
+  switch (keyCode) {
+    case SPACEBAR:
+      player.shoot();
+      break;
+    case SKEY:
+      player.rotateWeapon();
+      break;
+  }
+
+}
+
+function createStarfield() {
   for (var i = 0; i < starCount; i++) {
     stars[i] = new Star();
   }
 }
 
-function draw() {
-  background(0);
-
+function moveStarField() {
   for (var i = 0; i < starCount; i++) {
     stars[i].move();
     stars[i].display();
   }
-
-  if (keyIsDown(LEFT_ARROW)) {
-    ship.move(-1, 0);
-  }
-
-  if (keyIsDown(RIGHT_ARROW)) {
-    ship.move(1, 0);
-  }
-
-  if (keyIsDown(UP_ARROW)) {
-    ship.move(0, -1);
-  }
-
-  if (keyIsDown(DOWN_ARROW)) {
-    ship.move(0, 1);
-  }
-
-  // Shots
-  for (i=0; i < shots.length; i++) {
-    shots[i].move();
-    shots[i].display();
-
-    if (shots[i].done === true) {
-      shots.splice(i, 1);
-    }
-  }
-
-  for (i=0; i < enemies.length; i++) {
-    enemies[i].display();
-  }
-
-  ship.display();
-}
-
-function keyPressed() {
-    if (key === 'S') {
-      shots.push(new Shot(ship.x, ship.y));
-    }
-}
-
-function random(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 }

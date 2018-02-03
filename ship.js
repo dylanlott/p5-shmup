@@ -1,11 +1,10 @@
 function Ship(x, y) {
   this.x = x;
   this.y = y;
-  this.startPos = [x, y];
-  this.speed = 4;
+  this.speed = 3;
+  this.weapons = [new defaultWeapon()];
 
   this.move = function(x, y) {
-
     this.x += x * this.speed;
     if (this.x > width) {
       this.x = width;
@@ -25,8 +24,15 @@ function Ship(x, y) {
     }
   }
 
+  this.rotateWeapon = function() {
+    this.weapons.unshift(this.weapons.pop());
+  }
+
+  this.shoot = function(direction) {
+    this.weapons[0].fire(this.x, this.y, direction);
+  }
+
   this.display = function() {
     ellipse(this.x, this.y, 10, 10);
-    // image(shipImage, this.x -18, this.y, img.height/10, img.width/10);
   }
 }
